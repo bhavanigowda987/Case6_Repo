@@ -3,7 +3,7 @@ yum update -y
 yum install -y aws-cli amazon-cloudwatch-agent
 
 # Log S3 bucket listing
-aws s3 ls s3://case-study6-bucket/ >> /var/log/s3_access.log
+aws s3 ls s3://case-study6-bucket-bhavani-20250624/ >> /var/log/s3_access.log
 
 # Setup CloudWatch Agent config
 cat <<EOF > /opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json
