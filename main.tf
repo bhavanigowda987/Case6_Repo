@@ -9,7 +9,7 @@ resource "aws_vpc" "main" {
 resource "aws_subnet" "private" {
   vpc_id            = aws_vpc.main.id
   cidr_block        = "10.0.1.0/24"
-  availability_zone = "us-west-2a"
+  availability_zone = "us-west-1a"
 }
 
 resource "aws_security_group" "ec2_sg" {
@@ -32,7 +32,7 @@ resource "aws_security_group" "ec2_sg" {
 }
 
 resource "aws_s3_bucket" "private_bucket" {
-  bucket = "case-study6-bucket"
+  bucket = "case-study6-bucket-bhavani-20250624"
 
   tags = {
     Name = "CaseStudy6bucket"
@@ -94,7 +94,7 @@ resource "aws_iam_instance_profile" "ec2_profile" {
 
 resource "aws_vpc_endpoint" "s3" {
   vpc_id       = aws_vpc.main.id
-  service_name = "com.amazonaws.us-east-2.s3"
+  service_name = "com.amazonaws.us-west-1.s3"
   vpc_endpoint_type = "Gateway"
   route_table_ids   = [aws_vpc.main.default_route_table_id]
 }
