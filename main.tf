@@ -1,5 +1,5 @@
 provider "aws" {
-  region = "us-east-2"
+  region = "us-west-1"
 }
 
 resource "aws_vpc" "main" {
@@ -9,7 +9,7 @@ resource "aws_vpc" "main" {
 resource "aws_subnet" "private" {
   vpc_id            = aws_vpc.main.id
   cidr_block        = "10.0.1.0/24"
-  availability_zone = "us-east-2a"
+  availability_zone = "us-west-2a"
 }
 
 resource "aws_security_group" "ec2_sg" {
@@ -32,10 +32,10 @@ resource "aws_security_group" "ec2_sg" {
 }
 
 resource "aws_s3_bucket" "private_bucket" {
-  bucket = "case-study-6-secure-bucket"
+  bucket = "case-study6-bucket"
 
   tags = {
-    Name = "CaseStudy6"
+    Name = "CaseStudy6bucket"
   }
 }
 
@@ -74,8 +74,8 @@ resource "aws_iam_role_policy_attachment" "attach_cloudwatch_agent" {
 }
 
 resource "aws_instance" "ec2" {
-  ami           = "ami-06c8f2ec674c67112" # Amazon Linux 2 AMI in us-east-1
-  instance_type = "t2.micro"
+  ami           = "ami-014e30c8a36252ae5" 
+  instance_type = "t2.medium"
   subnet_id     = aws_subnet.private.id
   vpc_security_group_ids = [aws_security_group.ec2_sg.id]
   iam_instance_profile   = aws_iam_instance_profile.ec2_profile.name
@@ -83,7 +83,7 @@ resource "aws_instance" "ec2" {
   user_data = file("user_data.sh")
 
   tags = {
-    Name = "CaseStudy6EC2"
+    Name = "CaseStudy6"
   }
 }
 
